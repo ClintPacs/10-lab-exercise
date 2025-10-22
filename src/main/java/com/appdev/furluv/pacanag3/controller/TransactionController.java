@@ -1,0 +1,41 @@
+package com.appdev.furluv.pacanag3.controller;
+
+import com.appdev.furluv.pacanag3.entity.TransactionEntity;
+import com.appdev.furluv.pacanag3.service.TransactionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/transactions")
+public class TransactionController {
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @GetMapping
+    public List<TransactionEntity> getAllTransactions() {
+        return transactionService.getAllTransactions();
+    }
+
+    @GetMapping("/{id}")
+    public TransactionEntity getTransactionById(@PathVariable Long id) {
+        return transactionService.getTransactionById(id);
+    }
+
+    @PostMapping
+    public TransactionEntity createTransaction(@RequestBody TransactionEntity transaction) {
+        return transactionService.createTransaction(transaction);
+    }
+
+    @PutMapping("/{id}")
+    public TransactionEntity updateTransaction(@PathVariable Long id, @RequestBody TransactionEntity transaction) {
+        return transactionService.updateTransaction(id, transaction);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTransaction(@PathVariable Long id) {
+        transactionService.deleteTransaction(id);
+    }
+}
